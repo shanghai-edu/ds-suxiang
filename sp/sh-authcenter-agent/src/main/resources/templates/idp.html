@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>上海教育认证平台</title>
+  <!-- <link type="text/css" rel="stylesheet" href="./css/css.css" />
+  <script src="./js/jquery.js" type="text/javascript"></script> -->
+  <link type="text/css" rel="stylesheet" th:href="@{/static/css/css.css}" />
+  <script th:src="@{/static/js/jquery.js}" type="text/javascript"></script>
+</head>
+
+<body>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var loginType = [[${loginType}]];
+  var ctxPath = /*[[@{/}]]*/ '';
+  /*]]>*/
+</script>
+
+<script>
+  //判断是否为金山教育阅读平台访问
+  if (loginType === "jsyd") {
+    var url = genLoginUrl("https://idp.jsedu.sh.cn/idp/shibboleth");
+    var idp = '金山教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "qpjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '青浦教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "hpjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '黄浦教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "fxjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '奉贤教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "pdjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '浦东教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "ypjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '杨浦教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  } else if (loginType === "cnjy") {
+    var url = genLoginUrl("https://idp.qpedu.cn/idp/shibboleth");
+    var idp = '长宁教育';
+    window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+  }
+
+  function genLoginUrl(baseurl) {
+    var args = new Object();
+    var query = location.search.substring(1);
+    var param = query.split("&");
+    for (var i = 0; i < param.length; i++) {
+      var pos = param[i].indexOf('=');
+      if (pos == -1) {
+        continue;
+      }
+      var argname = param[i].substring(0, pos);
+      var value = param[i].substring(pos + 1);
+      args[argname] = unescape(value);
+    }
+    var url = unescape(args['return']) + "&entityID="+baseurl;
+    return url;
+  }
+
+  // 列表选择idp跳转事件
+  function bfsubmit() {
+    if ($("#ddl_selectidp").val() != "0") {
+      var args = new Object();
+      var query = location.search.substring(1); //获取查询串
+      var param = query.split("&");
+      for (var i = 0; i < param.length; i++) {
+        var pos = param[i].indexOf('='); //查找name=value
+        if (pos == -1) { //如果没有找到就跳过
+          continue;
+        }
+        var argname = param[i].substring(0, pos); //提取name
+        var value = param[i].substring(pos + 1); //提取value
+        args[argname] = unescape(value); //存为属性
+      }
+      var url = unescape(args['return']) + "&entityID=" + $("#ddl_selectidp").val();
+      var idp = $("#ddl_selectidp").find("option:selected").html();
+      idp = idp.substr(3);
+      //document.location = url;
+      window.location.href = ctxPath + "auth/tologin?idp="+idp+"&loginUrl=" + encodeURIComponent(url);
+    } else {
+      alert("请选择您所在的学校");
+    }
+  }
+</script>
+  <div class="top">
+    <div class="main">
+      <a><img th:src="@{/static/images/Rlogo.jpg}" /></a>
+    </div>
+  </div>
+  <div class="login-c">
+    <div class="main">
+      <div class="login-list fl">
+        <ul class="login-list-ul">
+        </ul>
+      </div>
+      <div class="login-form fr">
+        <h2 class="login-form-h2">用户登录</h2>
+        <div class="login-jump">
+          <div class="login-jump-select">
+            <dl class="jump-select-dl clearfix">
+              <dt>
+                <span></span>
+              </dt>
+              <dd>
+                <select name="ddl_selectidp" id="ddl_selectidp" class="jump-select">
+                  <option value="0">选择您所在的学校</option>
+                  <option value="https://idp.shec.edu.cn/idp/shibboleth">01:上海市教委</option>
+                  <option value="https://idpfudan.fudan.edu.cn/idp/shibboleth">02:复旦大学</option>
+                  <option value="https://idp.ecnu.edu.cn/idp/shibboleth">04:华东师范大学</option>
+                  <option value="https://idp.ecust.edu.cn/idp/shibboleth">05:华东理工大学</option>
+                  <option value="https://idp.shisu.edu.cn/idp/shibboleth">06:上海外国语大学</option>
+                  <option value="https://idp.dhu.edu.cn/idp/shibboleth">07:东华大学</option>
+                  <option value="https://idpcarsi.shufe.edu.cn/idp/shibboleth">08:上海财经大学</option>
+                  <option value="https://idp.usst.edu.cn/idp/shibboleth">09:上海理工大学</option>
+                  <option value="https://idp.shiep.edu.cn/idp/shibboleth">10:上海电力学院</option>
+                  <option value="https://idp.shu.edu.cn/idp/shibboleth">11:上海大学</option>
+                  <option value="https://idp.shnu.edu.cn/idp/shibboleth">12:上海师范大学</option>
+                  <option value="https://jaccount.sjtu.edu.cn/idp/shibboleth">15:上海交通大学</option>
+                  <option value="https://idp.shmtu.edu.cn/idp/shibboleth">16:上海海事大学</option>
+                  <option value="https://idp-carsi.shou.edu.cn/idp/shibboleth">17:上海海洋大学</option>
+                  <option value="https://idp.sspu.edu.cn/idp/shibboleth">18:上海第二工业大学</option>
+                  <option value="https://idp.sandau.edu.cn/idp/shibboleth">19:上海杉达学院</option>
+                  <option value="https://idp.sdju.edu.cn/idp/shibboleth">20:上海电机学院</option>
+                  <option value="https://idp.shsmu.edu.cn/idp/shibboleth">21:上海交通大学医学院</option>
+                  <option value="https://idp.shcc.edu.cn/idp/shibboleth">22:上海海关学院</option>
+                  <option value="https://idp.sbs.edu.cn/idp/shibboleth">23:上海商学院</option>
+                  <option value="https://idp.gench.edu.cn/idp/shibboleth">24:上海建桥学院</option>
+                  <option value="https://idp.smmu.edu.cn/idp/shibboleth">25:海军军医大学</option>
+                  <option value="https://idp-carsi.suibe.edu.cn/idp/shibboleth">26:上海对外经贸大学</option>
+                  <option value="https://idp.sus.edu.cn/idp/shibboleth">27:上海体育学院</option>
+                  <option value="https://idp.esu.edu.cn/idp/shibboleth">28:上海东海职业技术学院</option>
+                  <option value="https://idp.shafc.edu.cn/idp/shibboleth">29:上海农林职业技术学院</option>
+                  <option value="https://idp.sicfl.edu.cn/idp/shibboleth">30:上海工商外国语职业学院</option>
+                  <option value="https://idp.shjgu.edu.cn/idp/shibboleth">31:上海济光职业技术学院</option>
+                  <option value="https://idp.sou.edu.cn/idp/shibboleth">32:上海开放大学</option>
+                  <option value="https://idp.sumhs.edu.cn/idp/shibboleth">33:上海健康医学院</option>
+                  <option value="https://idp.ecupl.edu.cn/idp/shibboleth">34:华东政法大学</option>
+                  <option value="https://idp-sma.cloud.sh.edu.cn/idp/shibboleth">35:上海海事职业技术学院</option>
+                  <option value="https://idp.sitsh.edu.cn/idp/shibboleth">36:上海旅游高等专科学校</option>
+                  <option value="https://idp.shpc.edu.cn/idp/shibboleth">37:上海公安学院</option>
+                  <option value="https://idp-shec.cloud.sh.edu.cn/idp/shibboleth">38:认证中心测试子域</option>
+                  <option value="https://idp-xwcb.cloud.sh.edu.cn/idp/shibboleth">39:上海新闻出版职业技术学校</option>
+                  <option value="https://idp-shwmcj.cloud.sh.edu.cn/idp/shibboleth">40:上海市贸易学校</option>
+                  <option value="https://idp-scasqhwz.cloud.sh.edu.cn/idp/shibboleth">41:上海商业会计学校</option>
+                  <option value="https://idp-shnhzx.cloud.sh.edu.cn/idp/shibboleth">42:上海市南湖职校</option>
+                  <option value="https://idp-sems.cloud.sh.edu.cn/idp/shibboleth">43:上海市经济管理学校</option>
+                  <option value="https://idp-sthu.cloud.sh.edu.cn/idp/shibboleth">44:上海师范大学天华学院</option>
+                  <option value="https://idp-sjxqzx.cloud.sh.edu.cn/idp/shibboleth">51:上海市松江区新桥职业技术学校</option>
+                  <option value="https://idp-qpzx.cloud.sh.edu.cn/idp/shibboleth">52:上海市青浦区职业学校</option>
+                  <option value="https://idp.sit.edu.cn/idp/shibboleth">53:上海应用技术大学</option>
+                  <option value="https://idp.scst.edu.cn/idp/shibboleth">54:上海科学技术职业学院</option>
+                  <option value="https://idp.xdsisu.edu.cn/idp/shibboleth">55:上海外国语大学贤达经济人文学院</option>
+                  <option value="https://idp.firstjob.com.cn/idp/shibboleth">56:学生事务中心</option>
+                  <option value="https://idp.hpe.cn/idp/shibboleth">57:黄浦区教育信息中心</option>
+                  <option value="https://idp.chneic.sh.cn/idp/shibboleth">58:长宁区教育信息中心</option>
+                  <option value="https://idp.sjedu.cn/idp/shibboleth">59:松江智慧教育</option>
+                  <option value="https://idp.mhedu.sh.cn/idp/shibboleth">60:闵行区教育局信息中心</option>
+                  <option value="https://idp.xhedu.sh.cn/idp/shibboleth">61:徐汇教育</option>
+                  <option value="https://idp.qpedu.cn/idp/shibboleth">62:青浦教育</option>
+                  <option value="https://idp.jsedu.sh.cn/idp/shibboleth">63:金山教育</option>
+                  <option value="https://idp-cmjy.cloud.sh.edu.cn/idp/shibboleth">64:崇明教育</option>
+                  <option value="https://idp.pte.sh.cn/idp/shibboleth">66:普陀教育</option>
+                  <option value="https://idp-age03.cloud.sh.edu.cn/idp/shibboleth">70:学前03子域</option>
+                  <option value="https://idp-huiyuan.cloud.sh.edu.cn/idp/shibboleth">72:慧源共享认证子域</option>
+                  <option value="https://idp-age06.cloud.sh.edu.cn/idp/shibboleth">73:学前教育认证</option>
+                  <option value="https://idp-zzyrz.cloud.sh.edu.cn/idp/shibboleth">75:中职开放课程云认证</option>
+                  <option value="https://stu-idp.edu.sh.cn/idp/shibboleth">76:电教馆-idp</option>
+                </select>
+              </dd>
+            </dl>
+          </div>
+          <div class="login-jump-btn">
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="left"><a href="#" class="jump-btn" onclick="bfsubmit();"></a></td>
+                <td align="right"><a href="#" class="help-btn"></a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="login-form-tip">
+          <p>建议使用IE10.0及以上版本浏览器或同类浏览器，</p>
+          <p>建议使用1024×768及以上分辨率浏览，</p>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>版权所有&copy;上海教育认证中心</p>
+  </div>
+
+
+</body>
+
+</html>
