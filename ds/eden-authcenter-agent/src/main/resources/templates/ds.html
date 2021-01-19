@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>上海市中小学数字教材</title>
+    <link rel="stylesheet" th:href="@{/static/css/ds.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}" />
+    <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" src="../static/js/browser.js"></script>
+    <!--<script src="../js/vendor/modernizr-2.6.2.min.js"></script>-->
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="ds">
+      <div class="ds-header">
+        <img class="ds-header-img" th:src="@{/static/img/Rlogo.jpg}" alt="" />
+      </div>
+      <div class="ds-content">
+        <div class="ds-content-mask">
+          <p class="ds-content-title">发现服务 · 速享之旅</p>
+          <div class="ds-content-city">
+            <p>市认证源</p>
+            <button
+              onclick="toLogin('djg')"
+              class="logo-btn djg-btn"
+              style="background: white url('../static/img/logo-djg.png')"
+              type="button"
+            ></button>
+          </div>
+          <div class="ds-divide-line"></div>
+          <div class="ds-content-district">
+            <p>区认证源</p>
+            <div>
+              <button
+                onclick="toLogin('qpjy')"
+                class="logo-btn idp-btn"
+                style="background: url('../static/img/logo-qp.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('jsyd')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-js.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('hpjy')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-hp.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('fxjy')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-fx.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('pdjy')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-pd.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('ypjy')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-yp.png')"
+                type="button"
+              ></button>
+              <button
+                onclick="toLogin('cnjy')"
+                class="logo-btn idp-btn logo-btn-mask"
+                disabled="disabled"
+                style="background: url('../static/img/logo-cn.png')"
+                type="button"
+              ></button>
+            </div>
+          </div>
+          <p class="ds-content-text">点击图标前往所属认证源 · · ·</p>
+          <div class="szjc-login">
+            <p>如果您曾经参与上海市中小学数字教材试验项目，</p>
+            <p><a style="color: red;" onclick="toLogin('szjc')">请点击此处使用数字教材账号登录>></a></p>
+          </div>
+        </div>
+      </div>
+      <div class="ds-footer">
+        <p class="ds-content-text">版权所有&copy;上海教育认证中心</p>
+      </div>
+    </div>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var loginUrl1 = [[${loginUrl1}]];
+      var loginUrl2 = [[${loginUrl2}]];
+      var loginUrl3 = [[${loginUrl3}]];
+      var logId = [[${logId}]];
+      var ctxPath = /*[[@{/}]]*/ '';
+      /*]]>*/
+    </script>
+    <script type="text/javascript">
+      function toLogin(idp) {
+        var info = new Browser();
+        var baseUrl = ctxPath + "auth/tologin?logId="+logId+"&oauthType=";
+        if (idp=="djg") {
+          window.location.href = baseUrl+ "dianjiaoguan&loginUrl=" + encodeURIComponent(loginUrl1)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        } else if (idp=="szjc") {
+          window.location.href = baseUrl+ "edenoperation&loginUrl=" + encodeURIComponent(loginUrl2)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        } else {
+          window.location.href = baseUrl+"qpjy&loginUrl=" + encodeURIComponent(loginUrl3+"&auth_source="+idp)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        }
+      }
+    </script>
+  </body>
+</html>

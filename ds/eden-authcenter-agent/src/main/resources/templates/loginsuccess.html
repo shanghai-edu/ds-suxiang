@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>上海数字教材运营管理中心</title>
+
+  <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+  <!--<script src="../js/vendor/modernizr-2.6.2.min.js"></script>-->
+</head>
+<body>
+<form th:action="${successPostUrl}" method="post" th:object="${clientDataInfo}">
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.id}" name="authUserInfo.id"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.realName}" name="authUserInfo.realName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.userType}" name="authUserInfo.userType"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.source}" name="authUserInfo.source"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentId}" name="authUserInfo.studentId"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentCode}" name="authUserInfo.studentCode"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentStage}" name="authUserInfo.studentStage"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentGrade}" name="authUserInfo.studentGrade"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentClass}" name="authUserInfo.studentClass"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentStageName}" name="authUserInfo.studentStageName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentGradeName}" name="authUserInfo.studentGradeName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentClassName}" name="authUserInfo.studentClassName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentSchoolId}" name="authUserInfo.studentSchoolId"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentCodeStatus}" name="authUserInfo.studentCodeStatus"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentSchoolCode}" name="authUserInfo.studentSchoolCode"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentSchoolName}" name="authUserInfo.studentSchoolName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentRegionCode}" name="authUserInfo.studentRegionCode"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.studentRegionName}" name="authUserInfo.studentRegionName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherTrainingNo}" name="authUserInfo.teacherTrainingNo"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherTrainingUserName}" name="authUserInfo.teacherTrainingUserName"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherRegionCode}" name="authUserInfo.teacherRegionCode"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherCampusCode}" name="authUserInfo.teacherCampusCode"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherTrainingSchoolType}" name="authUserInfo.teacherTrainingSchoolType"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherStage}" name="authUserInfo.teacherStage"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherGrade}" name="authUserInfo.teacherGrade"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherSubject}" name="authUserInfo.teacherSubject"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherSchoolId}" name="authUserInfo.teacherSchoolId"/>
+  <input type="hidden" th:value="${clientDataInfo.authUserInfo.teacherSchoolName}" name="authUserInfo.teacherSchoolName"/>
+  <input type="hidden" th:value="${clientDataInfo.returnUrl}" name="returnUrl"/>
+  <input type="hidden" th:value="${clientDataInfo.oauthType}" name="oauthType"/>
+</form>
+<script type="text/javascript">
+  $(function(){
+    $("form").submit();
+  })
+</script>
+
+
+</body></html>

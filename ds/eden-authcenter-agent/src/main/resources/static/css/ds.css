@@ -1,0 +1,131 @@
+.ds {
+  max-width: 1900px;
+  margin: 0 auto;
+}
+.ds-header-img {
+  margin-left: 120px;
+}
+.ds-content {
+  width: 100%;
+  height: 603px;
+  background: url("../img/bg.png") no-repeat center center;
+  overflow: hidden;
+}
+.ds-content-mask {
+  margin: 30px 30px;
+  height: 543px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.ds-content-title {
+  padding: 50px 0 20px 0;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: 6px;
+}
+.ds-footer {
+  width: 100%;
+  height: 139px;
+  background: white url("../img/Login-b.jpg") no-repeat center center;
+}
+.ds-footer > p {
+  color: #aab9c5;
+  font-size: 12px;
+  line-height: 75px;
+  text-align: center;
+}
+.ds-content-city {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+}
+.ds-content-city > p {
+  width: 100px;
+  color: white;
+  font-size: 20px;
+  line-height: 42px;
+  flex-shrink: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+.ds-content-district {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+}
+.ds-content-district > p {
+  width: 100px;
+  color: white;
+  font-size: 20px;
+  line-height: 52px;
+  flex-shrink: 0;
+  margin: 0;
+  margin-top: 10px;
+  height: 52px;
+}
+.logo-btn {
+  border: 0;
+  border-radius: 5px;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  position: relative;
+  outline: 0;
+}
+.logo-btn:focus {
+  outline: 0;
+}
+.djg-btn {
+  width: 320px;
+  height: 42px;
+  margin: 10px 10px;
+}
+.idp-btn {
+  width: 143px;
+  height: 52px;
+  background-size: 100% 100% !important;
+  margin: 10px 10px;
+}
+.logo-btn:after{
+  position: absolute;
+  content: "\00a0";
+}
+.logo-btn-mask:after {
+  position: absolute;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  content: "\00a0";
+  background-color: black;
+  opacity: 0.2;
+  width: 100%;
+  height: 100%;
+}
+.ds-content-text {
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-top: 40px;
+  margin-bottom: 8px;
+}
+.ds-divide-line {
+  width: 80%;
+  margin: 20px auto;
+  height: 2px;
+  background: -webkit-linear-gradient(left, rgba(251, 251, 251, 0.09), rgba(251, 251, 251, 0.59), rgba(251, 251, 251, 0.09)); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, rgba(251, 251, 251, 0.09), rgba(251, 251, 251, 0.59), rgba(251, 251, 251, 0.09)); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, rgba(251, 251, 251, 0.09), rgba(251, 251, 251, 0.59), rgba(251, 251, 251, 0.09)); /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, rgba(251, 251, 251, 0.09), rgba(251, 251, 251, 0.59), rgba(251, 251, 251, 0.09)); 
+}
+.szjc-login {
+  width: 80%;
+  margin: 0px auto;
+  text-align: center;
+}
+.szjc-login > p {
+  color: white;
+  font-size: 18px;
+  margin: 0;
+  margin-bottom: 6px;
+}

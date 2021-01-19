@@ -1,0 +1,63 @@
+server:
+  port: 9600
+  context-path: /authcenter
+spring:
+  application:
+    name: eden-authcenter-agent
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    enabled: true
+    content-type: text/html
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    default-property-inclusion: non_null
+    serialization: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 300MB
+oauth:
+  items:
+    dianjiaoguan:   #电教馆
+      #oauthUrl: https://castest.edu.sh.cn/CAS
+      oauthUrl: https://cas2.edu.sh.cn/CAS
+      clientId: clientid
+      clientSecret: clientSecret
+      loginSuccessUrl: https://ds.etextbook.cn/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://ds.etextbook.cn/authcenter/auth/logoutsuccess
+    edenoperation:  #运营中心
+      #oauthUrl: https://operator-api-test.etextbook.cn/cas
+      oauthUrl: https://operator-api.sh-genius.cn/cas/
+      clientId: testClentId
+      clientSecret: testClientSecret
+      loginSuccessUrl: https://ds.etextbook.cn/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://ds.etextbook.cn/authcenter/auth/logoutsuccess
+    qpjy:  #idp
+      #oauthUrl: https://operator-api-test.etextbook.cn/cas
+      oauthUrl: https://sp.etextbook.cn/authcenter/auth/login
+      clientId: dsClentId
+      clientSecret: VjyqUkkM5Znu
+      loginSuccessUrl: https://ds.etextbook.cn/authcenter/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://ds.etextbook.cn/authcenter/auth/logoutsuccess
+oauthclient:
+  clients:
+    - clientName: 上海运营中心
+      clientId: testClentId
+      clientSecret: testClientSecret
+    - clientName: 接入样例
+      clientId: testClentId2
+      clientSecret: testClientSecret2
+    - clientName: 第三方接入
+      clientId: xhzyClientId
+      clientSecret: xhzyClientSecret
+    - clientName: 阅览室
+      clientId: readingroomClientId
+      clientSecret: readingroomClientSecret

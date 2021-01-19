@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>上海数字教材运营管理中心</title>
+  <link rel="stylesheet" th:href="@{/static/css/main_0216.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/normalize.css}"/>
+  <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+  <script type="text/javascript" src="@{/staticjs/utils.js}"></script>
+  <!--<script src="../js/vendor/modernizr-2.6.2.min.js"></script>-->
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a
+        href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="bg">
+  <div class="bg-form">
+    <div class="loginContainer">
+      <!--<h1>上海数字教材运营管理中心</h1>-->
+      <div class="login-box">
+        <!-- <div class="bg-form" style="width: 80%;margin: 0 auto"></div> -->
+        <button onclick="toLogin(1)" accesskey="l" class="login-btn" id="login-button" name="button" style="outline:0;" type="button">登录
+        </button>
+        <div class="login-span"><span>如果您曾经参与上海市中小学数字教材试验项目，</span><span><a style="color:red;"onclick="toLogin(2)">请点击此处使用数字教材账号登录>></a></span></div>        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var loginUrl1 = [[${loginUrl1}]];
+  var loginUrl2 = [[${loginUrl2}]];
+  var logId = [[${logId}]];
+  var ctxPath = /*[[@{/}]]*/ '';
+  /*]]>*/
+</script>
+
+<script type="text/javascript">
+  function toLogin (num) {
+
+    var baseUrl = ctxPath + "auth/tologin?logId="+logId+"&oauthType=";
+    //var baseUrl = ctxPath + "auth/tologin?oauthType=";
+    if (num === 1) {
+      window.location.href = baseUrl+ "dianjiaoguan&loginUrl=" + encodeURIComponent(loginUrl1);
+    } else if (num === 2) {
+      window.location.href = baseUrl+ "edenoperation&loginUrl=" + encodeURIComponent(loginUrl2);
+    }
+    return false;
+  }
+
+</script>
+<script>
+  /*<![CDATA[*/
+  var loginUrl1 = './ds.html';
+  var loginUrl2 = 'https://operator-api-test.etextbook.cn/cas/oauth2.0/authorize?client_id=testClentId&redirect_uri=https%3A%2F%2Fds-test.etextbook.cn%2Fauthcenter%2Fauth%2Floginsuccess%3Foauth_type%3Dedenoperation%26return_url%3Dhttps%253A%252F%252Foperator-api-test.etextbook.cn%252Fucenter%252Fauth%252Floginsuccess%253Freturn_url%253Dhttps%25253A%25252F%25252Foperator-test.etextbook.cn%25252Flogin&state=state&response_type=code';
+  var ctxPath = '/authcenter/';
+  var info = {};
+  /*]]>*/
+</script>
+<script type="text/javascript">
+  info = new Browser();
+  function toLogin (num) {
+    if (num === 1) {
+      window.location.href = loginUrl1;
+    } else if (num === 2) {
+      window.location.href = loginUrl2;
+    }
+    return false;
+  }
+
+
+</script>
+</body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>上海市中小学数字教材</title>
+  <!-- <link rel="stylesheet" href="css/main_0327.css" />
+  <link rel="stylesheet" href="css/statistics.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/echarts.min.js"></script> -->
+  <link rel="stylesheet" th:href="@{/static/css/main_0216.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/statistics.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/normalize.css}"/>
+  <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+  <script th:src="@{/static/js/echarts.min.js}"></script>
+</head>
+
+<body style="background-color: rgb(244, 245, 245);">
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a
+          href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <div class="static">
+    <a th:href="@{/log/loginstat}">数字教材登陆统计</a>
+    <p class="static-title">登陆数据统计</p>
+    <p class="p-class"><span class="p-label">上海教育认证中心累计登录：</span><span class="p-num"></span>人次</p>
+    <p class="p-class"><span class="p-label">上海教育认证中心近30日登录：</span><span class="p-num"></span>人次</p>
+    <p class="p-class"><span class="p-label">上海教育认证中心近7日登录：</span><span class="p-num"></span>人次</p>
+    <div id="main" style="width: 600px; height: 400px; margin: 100px auto;"></div>
+  </div>
+
+  <script th:inline="javascript">
+  // <script type="text/javascript">
+    /*<![CDATA[*/
+    var data1_djg = [[${data1_djg}]];
+    var data1_time = [[${data1_time}]];
+    var data1_total_djg = [[${data1_total_djg}]];
+    var data1_30_djg = [[${data1_30_djg}]];
+    var data1_7_djg = [[${data1_7_djg}]];
+    // var data1_djg = [74, 34, 24, 37, 73, 106, 64];
+    // var data1_time = ['4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9'];
+    // var data1_total_djg = 3295;
+    // var data1_30_djg = 2348;
+    // var data1_7_djg = 412;
+    /*]]>*/
+  </script>
+
+  <script type="text/javascript">
+    // 初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        },
+        // formatter(params){
+        //   let sum = params[0].value + params[1].value
+        //   return ` ${params[0].axisValueLabel} 统计 </br>
+        //     电教馆： ${params[0].value} </br>
+        //     省运营： ${params[1].value} </br>
+        //     总计： ${sum}
+        //   `
+        // }
+      },
+      title: {
+        text: '近七日登陆数据',
+        left: '50%',
+        textAlign: 'center'
+      },
+      // legend: {
+      //   top: 40,
+      //   data: ['上海教育认证中心', '数字教材实验账号']
+      // },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        top: 80,
+        containLabel: true
+      },
+      xAxis: [{
+        type: 'category',
+        data: data1_time
+      }],
+      yAxis: [{
+        type: 'value'
+      }],
+      series: [{
+          name: '上海教育认证中心',
+          type: 'bar',
+          stack: '人次',
+          data: data1_djg
+        },
+        // {
+        //   name: '数字教材实验账号',
+        //   type: 'bar',
+        //   stack: '人次',
+        //   data: data1_syy
+        // }
+      ]
+    };
+
+    function displayNum() {
+      var doc = document.getElementsByClassName('p-num');
+      doc[0].textContent = data1_total_djg;
+      doc[1].textContent = data1_30_djg;
+      doc[2].textContent = data1_7_djg;
+    }
+
+    myChart.setOption(option);
+    displayNum();
+  </script>
+</body>
+</html>

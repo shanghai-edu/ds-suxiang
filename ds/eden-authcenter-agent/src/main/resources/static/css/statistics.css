@@ -1,0 +1,28 @@
+body {
+  overflow: auto;
+}
+.static{
+  width: 800px;
+  margin: 0 auto;
+  background-color: white;
+}
+.static-title{
+  font-size: 20px;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  margin-top: 0;
+}
+.p-class{
+  margin-left: 120px;
+  display: flex;
+}
+
+.p-label{
+  flex-basis: 200px;
+  text-align: right;
+  margin-right: 10px;
+}
+.p-num{
+  margin-right: 10px;
+}
