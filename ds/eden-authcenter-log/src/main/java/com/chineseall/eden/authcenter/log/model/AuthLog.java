@@ -70,6 +70,15 @@ public class AuthLog  implements CacheDimensionDocument {
     @DocumentField
     private String device;
 
+    @DocumentField
+    private String year;
+
+    @DocumentField
+    private String yearMonth;
+
+    @DocumentField
+    private String yearMonthDay;
+
     @Override
     public String[] generateCacheDimensions() {
         return new String[0];

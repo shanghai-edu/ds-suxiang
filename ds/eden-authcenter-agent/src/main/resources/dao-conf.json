@@ -2,9 +2,16 @@
   "mongo": [
     {
       "connectionName": "mongo",
-      "host": "192.168.1.8",
-      "port": 27017,
-      "connectTimeout": 10000
+      "host": "xxx",
+      "port": 3717,
+      "replicaSet": "xxx:3717",
+      "maxConnectionsPerHost": 3000,
+      "threadsAllowedToBlockForConnectionMultiplier": 10,
+      "authentication": true,
+      "connectTimeout": 10000,
+      "password": "xxx",
+      "userName": "xxx",
+      "dbName": "xxx"
     }
   ]
 }

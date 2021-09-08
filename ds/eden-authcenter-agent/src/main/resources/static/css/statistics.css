@@ -1,28 +1,69 @@
 body {
   overflow: auto;
 }
-.static{
-  width: 800px;
-  margin: 0 auto;
-  background-color: white;
+.static {
+  height: 100vh;
 }
-.static-title{
-  font-size: 20px;
-  text-align: center;
-  padding-top: 50px;
-  padding-bottom: 30px;
-  margin-top: 0;
-}
-.p-class{
-  margin-left: 120px;
+.statistics-header{
+  width: 100%;
   display: flex;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
 }
-
-.p-label{
-  flex-basis: 200px;
-  text-align: right;
-  margin-right: 10px;
+.statistics-content {
+  margin: 6px 6px;
+  display: flex;
+  height: calc(100vh - 90px);
 }
-.p-num{
-  margin-right: 10px;
+.statistics-content-item {
+  background-color: white;
+  margin: 10px 5px;
+  overflow: hidden;
+}
+.item-height {
+  height: 40%;
+}
+.item-height-higher {
+  height: 60%;
+}
+.statistics-content-item-title {
+  padding: 12px 0 0 20px;
+  font-size: 14px;
+  color: #777c82;
+}
+.statistics-content-item-title-remark {
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
+}
+.nums-total {
+  width: 140px;
+  height: 91px;
+  display: inline-block;
+  background-size: cover !important;
+  font-size: 12px;
+}
+.nums-title {
+  color: white;
+  margin: 20px 10px 10px 10px;
+  font-weight: 700;
+}
+.nums-title-num {
+  color: white;
+  margin: 0px 10px 20px 10px;
+  font-weight: 700;
+}
+.nums-total-nums {
+  font-size: 22px;
+}
+.idp-total-nums {
+  color: rgb(77, 160, 255);
+}
+.nums-by-idp {
+  width: 100%;
+  padding: 8px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
 }

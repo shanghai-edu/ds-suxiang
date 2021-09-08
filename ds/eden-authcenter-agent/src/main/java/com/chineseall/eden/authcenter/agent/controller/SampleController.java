@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 
-@Controller
-@RequestMapping("sample")
+//@Controller
+//@RequestMapping("sample")
 public class SampleController {
 
     // 认证系统提供client_id

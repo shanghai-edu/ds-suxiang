@@ -6,5 +6,5 @@ import lombok.Data;
 public class StatItem {
     private String code;
     private String name;
-    private Integer count;
+    private long count;
 }

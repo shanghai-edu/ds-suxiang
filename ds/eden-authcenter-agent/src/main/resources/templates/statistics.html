@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.w3.org/1999/xhtml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html xmlns:th="http://www.w3.org/1999/xhtml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html xmlns:th="http://www.w3.org/1999/xhtml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>上海市中小学数字教材</title>
+  <link rel="stylesheet" th:href="@{/static/css/main_0327.css}" />
+  <link rel="stylesheet" th:href="@{/static/css/statistics.css}" />
+  <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/static/css/normalize.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/static/css/iview.css}" />
+  <link rel="shortcut icon" th:href="@{/static/img/favicon.ico}" >
+  <script type="text/javascript" src="../static/js/jquery-1.10.2.min.js"></script>
+  <script src="../static/js/echarts.min.js"></script>
+  <script src="../static/js/vue.js"></script>
+  <script type="text/javascript" src="../static/js/iview.min.js"></script>
+  <!-- <link rel="stylesheet" th:href="@{/static/css/main_0327.css}"/>
+  <link rel="stylesheet" href="@{/static/css/statistics.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/static/css/normalize.css}"/>
+  <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+  <script src="@{/static/js/echarts.min.js}"></script> -->
+</head>
+
+<body style="background-color: rgb(244, 245, 245);">
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a
+          href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  <div id="app" class="static">
+    <div class="statistics-header">
+      <div class="flex" style="display: flex; align-items: center;">
+        <img src="../static/img/Rlogo.png" style="margin:5px 0; margin-left: 30px; width: 250px;" alt="">
+        <Divider type="vertical" style="height: 26px;"></Divider>
+        <p style="font-size: 14px; font-weight: 700;">发现服务 · 速享之旅</p>
+      </div>
+      <div class="flex">
+        <img src="../static/img/top-title.png" style="height: 22px;" alt="">
+      </div>
+      <div class="flex" style="display: flex;">
+        <i-select v-model="app" @on-change="refresh" style="width: 120px; margin: 0 5px;">
+          <i-option v-for="item in appList" :value="item.code" :label="item.name"></i-option>
+        </i-select>
+        <i-select v-model="time" @on-change="refresh" style="width: 120px; margin: 0 5px;">
+          <i-option v-for="item in timeType" :value="item.code" :label="item.name"></i-option>
+        </i-select>
+        <i-select v-if="time === 'year'" v-model="year" @on-change="refresh" style="width: 120px; margin: 0 5px;">
+          <i-option v-for="item in yearList" :value="item.code" :label="item.name"></i-option>
+        </i-select>
+        <i-select v-if="time === 'month'" v-model="month" @on-change="refresh" style="width: 120px; margin: 0 5px;">
+          <i-option v-for="item in monthList" :value="item.code" :label="item.name"></i-option>
+        </i-select>
+      </div>
+    </div>
+    <div class="statistics-content">
+      <div style="width: 25%; height: 100%;">
+        <div class="statistics-content-item item-height">
+          <p class="statistics-content-item-title">应用来源</p>
+          <div id="app-source" style="width: 95%;height: calc(100% - 40px); margin: 5px 5px;"></div>
+        </div>
+        <div class="statistics-content-item item-height-higher">
+          <p class="statistics-content-item-title">来源环境分析</p>
+          <div id="app-env-browser" style="width: 95%;height: calc(50% - 30px); margin: 5px 5px;"></div>
+          <div id="app-env-system" style="width: 95%;height: calc(50% - 30px); margin: 5px 5px;"></div>
+        </div>
+      </div>
+      <div style="width: 50%; height: 100%;">
+        <div class="statistics-content-item" style="height: 30%;">
+          <p class="statistics-content-item-title">认证数据统计<span class="statistics-content-item-title-remark">累计登录用户总数：
+              <span v-text="numsOfPeople"></span> 人</span>
+          </p>
+          <div style="display: flex; height: 100%;">
+            <div class="nums-by-idp" style="height: calc(100% - 40px);">
+              <div class="nums-total" style="background: url(../static/img/center-bg-1.png);">
+                <p class="nums-title">总人次</p>
+                <p class="nums-title-num"><span class="nums-total-nums" v-text="nums"></span>人次</p>
+              </div>
+              <div class="nums-total" style="background: url(../static/img/center-bg-2.png);">
+                <p class="nums-title">基础教育统一认证</p>
+                <p class="nums-title-num"><span class="nums-total-nums" v-text="numsJcjy"></span>人次</p>
+              </div>
+              <div class="nums-total" style="background: url(../static/img/center-bg-3.png);">
+                <p class="nums-title">青浦区认证子域</p>
+                <p class="nums-title-num"><span class="nums-total-nums" v-text="numsQp"></span>人次</p>
+              </div>
+              <div class="nums-total" style="background: url(../static/img/center-bg-4.png);">
+                <p class="nums-title">数字教材实验用户</p>
+                <p class="nums-title-num"><span class="nums-total-nums" v-text="numsSy"></span>人次</p>
+              </div>
+              <!-- <div style="margin-top: 10px; line-height: 1.5;">
+                <p v-for="item in numsIdpList">通过<span v-text="item.name"></span>子域认证：<span class="idp-total-nums"
+                    v-text="item.value"></span>
+                </p>
+              </div> -->
+            </div>
+            <!-- <div id="idp" style="width: 48%; height: calc(100% - 40px); margin: 5px 5px;"></div> -->
+          </div>
+        </div>
+        <div class="statistics-content-item" style="height: 70%;">
+          <p class="statistics-content-item-title">认证登陆高峰时间</p>
+          <div id="nums-by-time" style="width: 100%; height: calc(100% - 40px); margin: 0;"></div>
+        </div>
+      </div>
+      <div style="width: 25%; height: 100%;">
+        <div class="statistics-content-item item-height">
+          <p class="statistics-content-item-title">身份认证</p>
+          <div id="user-type" style="width: 95%;height: calc(100% - 40px); margin: 5px 5px;"></div>
+        </div>
+        <div class="statistics-content-item item-height-higher">
+          <p class="statistics-content-item-title">认证热点单位</p>
+          <div id="user-org" style="height: calc(100% - 40px); margin-top: 8px;">
+            <p style="padding: 5px 20px 0 20px; color: #5f646a; font-size: 12px; line-height: 1.8;" v-for="item in userOrgList"><span
+                style="color: orange; font-weight: 900; padding-right: 8px;">·</span><span v-text="item.name"></span><span
+                style="float: right;" v-text="item.count + ' 人次'"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- iview使用了includes方法，兼容ie11 -->
+  <script>
+    if (!Array.prototype.includes) {
+      Object.defineProperty(Array.prototype, 'includes', {
+        value: function(valueToFind, fromIndex) {
+
+          if (this == null) {
+            throw new TypeError('"this" is null or not defined');
+          }
+
+          // 1. Let O be ? ToObject(this value).
+          var o = Object(this);
+
+          // 2. Let len be ? ToLength(? Get(O, "length")).
+          var len = o.length >>> 0;
+
+          // 3. If len is 0, return false.
+          if (len === 0) {
+            return false;
+          }
+
+          // 4. Let n be ? ToInteger(fromIndex).
+          //    (If fromIndex is undefined, this step produces the value 0.)
+          var n = fromIndex | 0;
+
+          // 5. If n ≥ 0, then
+          //  a. Let k be n.
+          // 6. Else n < 0,
+          //  a. Let k be len + n.
+          //  b. If k < 0, let k be 0.
+          var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+          function sameValueZero(x, y) {
+            return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+          }
+
+          // 7. Repeat, while k < len
+          while (k < len) {
+            // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+            // b. If SameValueZero(valueToFind, elementK) is true, return true.
+            if (sameValueZero(o[k], valueToFind)) {
+              return true;
+            }
+            // c. Increase k by 1. 
+            k++;
+          }
+
+          // 8. Return false
+          return false;
+        }
+      });
+    }
+  </script>
+
+  <script type="text/javascript">
+    var baseUrl = "/";
+
+    var colorList = [
+      '#6c5df1', '#a78bf4', '#fdbf3c', '#ec6367', '#2fcaa8', '#79c161'
+    ]
+    new Vue({
+      el: '#app',
+      data: {
+        year: 'all',
+        yearList: [],
+        month: 1,
+        monthList: [],
+        time: 'year',
+        timeType: [
+          { code: 'year', name: '按年统计' },
+          { code: 'month', name: '按月统计' },
+        ],
+        app: 'all',
+        appList: [],
+        numsIdpList: [],
+        userOrgList: [],
+        nums: 0,
+        numsJcjy: 0,
+        numsQp: 0,
+        numsSy: 0,
+        numsOfPeople: 0
+      },
+      mounted: function () {
+        this.init();
+        this.refresh();
+        var _this = this;
+        window.onresize = function () {
+          var myChart = echarts.init(document.getElementById('app-source'));
+          var myChartBrowser = echarts.init(document.getElementById('app-env-browser'));
+          var myChartSystem = echarts.init(document.getElementById('app-env-system'));
+          // var myChartNums = echarts.init(document.getElementById("idp"));
+          var myChartNumsByTime = echarts.init(document.getElementById("nums-by-time"));
+          var myChartUserType = echarts.init(document.getElementById('user-type'));
+          myChart.resize();
+          myChartBrowser.resize();
+          myChartSystem.resize();
+          // myChartNums.resize();
+          myChartNumsByTime.resize();
+          myChartUserType.resize();
+        }
+      },
+      methods: {
+        init: function () {
+          this.appList = [{ code: 'all', name: '全部' }]
+
+          var date = new Date();
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+
+          this.yearList = [{ code: 'all', name: '全部' },]
+          for (var i = 2020; i <= year; i++) {
+            this.yearList.push({ code: i, name: i + "年" })
+          }
+          for (var i = 1; i <= month; i++) {
+            this.monthList.push({ code: i, name: year + '年' + i + "月" })
+          }
+
+          var _this = this;
+          $.ajax({
+            type: 'GET',
+            url: baseUrl + 'authcenter/logstatistics/auth_apps',
+            success: function (result) {
+              _this.appList = _this.appList.concat(result.data)
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        refresh: function () {
+          this.initSource();
+          this.initAppEnv();
+          this.initNums();
+          this.initNumsByTime();
+          this.initUserType();
+          this.initUserOrg();
+        },
+        initSource: function () {
+          var myChart = echarts.init(document.getElementById('app-source'));
+          var option = {
+            tooltip: {
+              trigger: "item",
+              formatter: "{a} <br/>{b}: {c}人次 ({d}%)",
+              position: [20, 20],
+            },
+            legend: {
+              icon: "circle",
+              bottom: 0,
+              data: ["数字教材", "阅览室", "其他"]
+            },
+            series: [
+              {
+                name: "应用来源",
+                type: "pie",
+                radius: ["40%", "60%"],
+                center: ["50%", "48%"],
+                label: {
+                  position: 'outside',
+                  formatter: "{per|{d}%}",
+                  rich: {
+                    per: {
+                      color: "black"
+                    }
+                  }
+                },
+                data: [],
+                itemStyle: {
+                  normal: {
+                    color: function (params) {
+                      // build a color map as your need.
+                      return colorList[params.dataIndex]
+                    }
+                  }
+                }
+              }
+            ]
+          };
+
+          var params = {
+            clientId: this.app,
+            year: this.year,
+            month: this.month
+          }
+          var _this = this;
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/app?' + _this.getParams(params),
+            success: function (result) {
+              // _this.appList = _this.appList.concat(result.data.data)
+
+              var legend = [];
+              var data = [];
+              for (var i = 0; i < result.data.length; i++) {
+                var element = result.data[i];
+                legend.push(element.name);
+                data.push({ value: element.count, name: element.name })
+              }
+              option.legend.data = legend;
+              option.series[0].data = data;
+              myChart.setOption(option);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        initAppEnv: function () {
+          var params = {
+            clientId: this.app,
+            year: this.year,
+            month: this.month
+          }
+          var _this = this;
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/environment?' + _this.getParams(params),
+            success: function (result) {
+              var legendSystem = [], dataSystem = [], legendBroswer = [], dataBrowser = [];
+
+              if (result.data.os.length) {
+                result.data.os.sort(function(a, b) { return b.count - a.count })
+              }
+              var others = { name: '其他', value: 0 };
+              var t = 0;
+              for (var i = 0; i < result.data.os.length; i++) {
+                var element = result.data.os[i];
+                if (element.name === 'unknown') element.name = '未知'
+                if (element.name === 'others' || t >= 4) {
+                  others.value += element.count;
+                  continue;
+                }
+                t++;
+                legendSystem.push(element.name);
+                dataSystem.push({ value: element.count, name: element.name })
+              }
+              if (others.value) {
+                legendSystem.push('其他');
+                dataSystem.push(others)
+              }
+
+              if (result.data.browser.length) {
+                result.data.browser.sort(function (a, b) { return b.count - a.count })
+              }
+              others = { name: '其他', value: 0 };
+              t = 0;
+              for (var i = 0; i < result.data.browser.length; i++) {
+                var element = result.data.browser[i];
+                if (element.name === 'unknown') element.name = '未知'
+                if (element.name === 'others' || t >= 4) {
+                  others.value += element.count;
+                  continue;
+                }
+                t++;
+                legendBroswer.push(element.name);
+                dataBrowser.push({ value: element.count, name: element.name })
+              }
+              if (others.value) {
+                legendBroswer.push('其他');
+                dataBrowser.push(others)
+              }
+
+              var myChartBrowser = echarts.init(document.getElementById('app-env-browser'));
+              var optionBrowser = {
+                tooltip: {
+                  trigger: "item",
+                  formatter: "{a} <br/>{b}: {c}人次 ({d}%)",
+                  position: [20, 20],
+                },
+                legend: {
+                  icon: "circle",
+                  orient: 'vertical',
+                  right: 'right',
+                  top: 'middle',
+                  data: legendBroswer,
+                  formatter: function (name) {
+                    var target;
+                    for (var i = 0, l = dataBrowser.length; i < l; i++) {
+                      if (dataBrowser[i].name == name) {
+                        target = dataBrowser[i].value;
+                      }
+                    }
+                    return name + ' ' + target;
+                  }
+                },
+                series: [
+                  {
+                    name: "浏览器类型",
+                    type: "pie",
+                    radius: ["30%", "70%"],
+                    center: ['30%', '50%'],
+                    labelLine: {
+                      show: false
+                    },
+                    label: {
+                      show: false
+                    },
+                    data: dataBrowser,
+                    itemStyle: {
+                      normal: {
+                        color: function (params) {
+                          // build a color map as your need.
+                          return colorList[params.dataIndex]
+                        }
+                      }
+                    }
+                  }
+                ]
+              };
+              myChartBrowser.setOption(optionBrowser);
+              
+              var myChartSystem = echarts.init(document.getElementById('app-env-system'));
+              var optionSystem = {
+                tooltip: {
+                  trigger: "item",
+                  formatter: "{a} <br/>{b}: {c}人次 ({d}%)",
+                  position: [20, 20],
+                },
+                legend: {
+                  icon: "circle",
+                  orient: 'vertical',
+                  right: 'right',
+                  top: 'middle',
+                  data: legendSystem,
+                  formatter: function (name) {
+                    var target;
+                    for (var i = 0, l = dataSystem.length; i < l; i++) {
+                      if (dataSystem[i].name == name) {
+                        target = dataSystem[i].value;
+                      }
+                    }
+                    return name + ' ' + target;
+                  }
+                },
+                series: [
+                  {
+                    name: "操作系统类型",
+                    type: "pie",
+                    radius: ["30%", "70%"],
+                    center: ['30%', '50%'],
+                    labelLine: {
+                      show: false
+                    },
+                    label: {
+                      show: false
+                    },
+                    data: dataSystem,
+                    itemStyle: {
+                      normal: {
+                        color: function (params) {
+                          // build a color map as your need.
+                          return colorList[params.dataIndex]
+                        }
+                      }
+                    }
+                  }
+                ]
+              };
+              myChartSystem.setOption(optionSystem);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        initNums: function () {
+          var _this = this;
+          // $.getJSON('./static/js/SHdata.json', function (SHjson) {
+          //   var myChartNums = echarts.init(document.getElementById("idp"));
+          //   // 第二个参数为导入地图文件
+          //   echarts.registerMap('shanghai', SHjson);
+
+          //   var optionNums = {
+          //     tooltip: {
+          //       trigger: 'item',
+          //       formatter: "{b}: {c}"
+          //     },
+          //     visualMap: {
+          //       show: false,
+          //       min: 0,
+          //       max: 418,
+          //       text: ['高', '低'],
+          //       realtime: false,
+          //       calculable: true,
+          //       inRange: {
+          //         color: ['lightskyblue', 'yellow', 'orangered']
+          //       }
+          //     },
+          //     series: [
+          //       {
+          //         type: 'map',
+          //         mapType: 'shanghai',
+          //         data: [],
+          //       }
+          //     ]
+          //   };
+
+          var params = {
+            clientId: _this.app,
+            year: _this.year,
+            month: _this.month
+          }
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/auth?' + _this.getParams(params),
+            success: function (result) {
+              _this.nums = result.data.all_auth;
+              _this.numsJcjy = result.data.cas_edu_auth;
+              _this.numsQp = result.data.qp_auth;
+              _this.numsSy = result.data.operator_auth;
+              _this.numsOfPeople = result.data.num_of_people;
+
+              // _this.numsIdpList = result.data.area_auth;
+              // var legend = [], data = [];
+              // for (var i = 0; i < result.data.area_auth.length; i++) {
+              //   var element = result.data.area_auth[i];
+              //   legend.push(element.name);
+              //   data.push({ value: element.count, name: element.name })
+              // }
+              // _this.numsIdpList = data.filter(function (element) { return element.value > 0 });
+              // optionNums.series[0].data = data
+              // myChartNums.setOption(optionNums);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+          // })
+        },
+        initNumsByTime: function () {
+          var optionNumsByTime = {
+            grid: {
+              top: '20px',
+              left: '40px',
+              right: '40px',
+              bottom: '20px',
+              containLabel: true
+            },
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                type: 'cross',
+                label: {
+                  backgroundColor: '#6a7985'
+                }
+              },
+              formatter: "{b}: {c}人次 "
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              axisLine: {
+                // show: false,//不显示坐标轴线
+                lineStyle: {
+                  color: 'lightgray'
+                }
+              },
+              axisLabel: {
+                color: "black" //Y轴刻度字颜色
+              },
+              splitLine: {
+                show: true
+              },
+              data: []
+            },
+            yAxis: {
+              type: 'value',
+              axisLine: {
+                // show: false,//不显示坐标轴线
+                lineStyle: {
+                  color: 'lightgray'
+                }
+              },
+              axisLabel: {
+                show: false,//不显示坐标轴上的文字
+              },
+            },
+            series: [{
+              data: [],
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                color: "#4583f4"
+              },
+              areaStyle: {
+                color: '#4583f4'
+              }
+            }]
+          };
+          var params = {
+            clientId: this.app,
+            year: this.year,
+            month: this.month
+          }
+          var _this = this;
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/auth_pick_times?' + _this.getParams(params),
+            success: function (result) {
+              var legend = [], data = [];
+              for (var i = 0; i < result.data.length; i++) {
+                var element = result.data[i];
+                legend.push(element.name);
+                data.push({ value: element.count, name: element.name })
+              }
+              optionNumsByTime.xAxis.data = legend;
+              optionNumsByTime.series[0].data = data;
+              var myChartNumsByTime = echarts.init(document.getElementById("nums-by-time"));
+              myChartNumsByTime.setOption(optionNumsByTime);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        initUserType: function () {
+          var optionUserType = {
+            tooltip: {
+              trigger: "item",
+              formatter: "{a} <br/>{b}: {c}人次 ({d}%)",
+              position: [20, 20],
+            },
+            legend: {
+              icon: "circle",
+              bottom: 0,
+              data: []
+            },
+            series: [
+              {
+                name: "访客身份",
+                type: "pie",
+                radius: ["30%", "50%"],
+                center: ["50%", "48%"],
+                label: {
+                  position: 'outside',
+                  formatter: "{per|{d}%}",
+                  rich: {
+                    per: {
+                      color: "black"
+                    }
+                  }
+                },
+                data: [],
+                itemStyle: {
+                  normal: {
+                    color: function (params) {
+                      // build a color map as your need.
+                      return colorList[params.dataIndex]
+                    }
+                  }
+                }
+              }
+            ]
+          };
+          var params = {
+            clientId: this.app,
+            year: this.year,
+            month: this.month
+          }
+          var _this = this;
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/auth_user_type?' + _this.getParams(params),
+            success: function (result) {
+              var legend = [], data = [];
+              for (var i = 0; i < result.data.length; i++) {
+                var element = result.data[i];
+                legend.push(element.name);
+                data.push({ value: element.count, name: element.name })
+              }
+              optionUserType.legend.data = legend;
+              optionUserType.series[0].data = data;
+              var myChartUserType = echarts.init(document.getElementById('user-type'));
+              myChartUserType.setOption(optionUserType);
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        initUserOrg: function () {
+          var params = {
+            clientId: this.app,
+            year: this.year,
+            month: this.month
+          }
+          var _this = this;
+          $.ajax({
+            url: baseUrl + 'authcenter/logstatistics/auth_hot_org?' + _this.getParams(params),
+            success: function (result) {
+              _this.userOrgList = result.data
+            },
+            error: function (e) {
+              console.log(e)
+            }
+          })
+        },
+        getParams: function (params) {
+          if (!params) return '';
+          var res = '';
+          var keys = Object.keys(params);
+          if (this.time === 'month') {
+            var date = new Date();
+            var year = date.getFullYear();
+            params.year = year;
+            params.month = year + '-' + (this.month < 10 ? ('0' + this.month) : this.month);
+          }
+          for (var i = 0; i < keys.length; i++) {
+            if (this.time !== 'month' && keys[i] === 'month') continue;
+            if (params[keys[i]] !== 'all') {
+              if (res !== '') res += '&'
+              res = res + keys[i] + '=' + params[keys[i]];
+            }
+          }
+          return res;
+        },
+        randomFun: function (arr) {
+          for(var i=0, len = arr.length; i < len; i++) {
+            var index = parseInt(Math.random() * (len - 1));
+            var tempValue = arr[i];
+            arr[i] = arr[index];
+            arr[index] = tempValue;
+          }
+          return arr;
+        }
+      },
+    })
+
+  </script>
+
+</body>
+
+</html>

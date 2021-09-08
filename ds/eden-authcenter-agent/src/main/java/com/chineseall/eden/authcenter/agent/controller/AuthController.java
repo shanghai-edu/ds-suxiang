@@ -2,10 +2,9 @@ package com.chineseall.eden.authcenter.agent.controller;
 
 import cn.sh.chineseall.framework.core.util.ArrayUtils;
 import cn.sh.chineseall.framework.core.util.StringUtils;
-import com.chineseall.eden.authcenter.agent.client.AuthUserInfo;
-import com.chineseall.eden.authcenter.agent.client.ClientDataInfo;
-import com.chineseall.eden.authcenter.agent.client.ClientItem;
-import com.chineseall.eden.authcenter.agent.client.OauthClient;
+import cn.sh.chineseall.framework.lang.calendar.DateUtils;
+import com.alibaba.fastjson.JSON;
+import com.chineseall.eden.authcenter.agent.client.*;
 import com.chineseall.eden.authcenter.agent.oauth.OauthConfig;
 import com.chineseall.eden.authcenter.agent.oauth.OauthConfigItem;
 import com.chineseall.eden.authcenter.agent.oauth.OauthType;
@@ -29,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +36,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("auth")
+@RequestMapping("/")
 public class AuthController {
 
     Logger logger = Logger.getLogger(AuthController.class);
@@ -51,118 +51,90 @@ public class AuthController {
     private AuthLogService authLogService;
 
 
-//    @RequestMapping("index")
-//    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("index2");
-//        Map<String, ClientItem> clientItemMap = oauthClient.getClients().stream().collect(Collectors.toMap(ClientItem::getClientId, Function.identity()));
-//        try {
-//            String clientId = request.getParameter("client_id");
-//            String returnUrl = request.getParameter("redirect_uri");
-//            ClientItem clientItem = clientItemMap.get(clientId);
-//            AuthLog authLog = new AuthLog();
-//            authLog.setLogType(LogType.login);
-//            if (null == clientItem) {
-//                modelAndView.setViewName("error");
-//                modelAndView.addObject("message", "client_id为空或者不正确");
-//                return modelAndView;
-//            }
-//            authLog.setClientId(clientId);
-//            authLog.setAuthSource(clientItem.getClientName());
-//            String sign = request.getParameter("sign");
-//            String signOrigin = clientItem.getClientId() + "$$" + clientItem.getClientSecret();
-//
-//            String md5Hex = EncodeUtil.md5(signOrigin);
-//            if (!Objects.equals(sign, md5Hex)) {
-//                modelAndView.setViewName("error");
-//                modelAndView.addObject("message", "请求不合法");
-//                return modelAndView;
-//            }
-//            if (StringUtils.isEmpty(returnUrl)) {
-//                modelAndView.setViewName("error");
-//                modelAndView.addObject("message", "登录成功回调地址为空");
-//                return modelAndView;
-//            }
-//            String loginType = request.getParameter("login_type");
-//            if(StringUtils.isNotEmpty(loginType) && OauthType.getValue(loginType)!=null) {
-//                OauthConfigItem oauthConfigItem = oauthConfig.getItems().get(OauthType.getValue(loginType).getCode());
-//                authLog.setFowardUrl(oauthConfigItem.getOauthUrl());
-//                authLog.setOauthType(OauthType.getValue(loginType).getCode());
-//                // 阅览室日志分离
-//                ClientItem item = clientItemMap.get("readingroomClientId");
-//                authLog.setAuthSource(item.getClientName());
-//                authLogService.save(authLog);
-//                response.sendRedirect(generateLoginUrl(returnUrl, OauthType.getValue(loginType).getCode(), authLog.getId()));
-//                return null;
-//            } else {
-//                authLogService.save(authLog);
-//                String url1 = generateLoginUrl(returnUrl, OauthType.dianjiaoguan.getCode(), authLog.getId());
-//                modelAndView.addObject("loginUrl1", url1);
-//                String url2 = generateLoginUrl(returnUrl, OauthType.edenoperation.getCode(), authLog.getId());
-//                modelAndView.addObject("loginUrl2", url2);
-//                modelAndView.addObject("logId", authLog.getId());
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            modelAndView.setViewName("error");
-//            modelAndView.addObject("message", "未知错误");
-//        }
-//        return modelAndView;
-//    }
 
-    @RequestMapping("index")
+    @RequestMapping(value = {"","auth","auth/index"})
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("ds");
         Map<String, ClientItem> clientItemMap = oauthClient.getClients().stream().collect(Collectors.toMap(ClientItem::getClientId, Function.identity()));
+
         try {
             String clientId = request.getParameter("client_id");
+
             String returnUrl = request.getParameter("redirect_uri");
-            ClientItem clientItem = clientItemMap.get(clientId);
+            String business_client = request.getParameter("business_client");
             AuthLog authLog = new AuthLog();
             authLog.setLogType(LogType.login);
-            if (null == clientItem) {
-                modelAndView.setViewName("error");
-                modelAndView.addObject("message", "client_id为空或者不正确");
-                return modelAndView;
-            }
-            authLog.setClientId(clientId);
-            authLog.setAuthSource(clientItem.getClientName());
-            String sign = request.getParameter("sign");
-            String signOrigin = clientItem.getClientId() + "$$" + clientItem.getClientSecret();
+            if (StringUtils.isNotEmpty(clientId)){
 
-            String md5Hex = EncodeUtil.md5(signOrigin);
-            if (!Objects.equals(sign, md5Hex)) {
-                modelAndView.setViewName("error");
-                modelAndView.addObject("message", "请求不合法");
-                return modelAndView;
+                ClientItem clientItem = clientItemMap.get(clientId);
+                if (null == clientItem) {
+                    modelAndView.setViewName("error");
+                    modelAndView.addObject("message", "client_id为空或者不正确");
+                    return modelAndView;
+                }
+                authLog.setClientId(clientId);
+                authLog.setAuthSource(clientItem.getClientName());
+                String sign = request.getParameter("sign");
+                String signOrigin = clientItem.getClientId() + "$$" + clientItem.getClientSecret();
+
+                String md5Hex = EncodeUtil.md5(signOrigin);
+                if (!Objects.equals(sign, md5Hex)) {
+                    modelAndView.setViewName("error");
+                    modelAndView.addObject("message", "请求不合法");
+                    return modelAndView;
+                }
+                if (StringUtils.isEmpty(returnUrl)) {
+                    modelAndView.setViewName("error");
+                    modelAndView.addObject("message", "登录成功回调地址为空");
+                    return modelAndView;
+                }
+                String loginType = request.getParameter("login_type");
+                if(StringUtils.isNotEmpty(loginType)) {
+                    if (StringUtils.isNotEmpty(returnUrl) && (returnUrl.contains("readinglab") || returnUrl.contains("read.etextbook.cn"))){
+                        // 阅览室日志分离
+                        ClientItem item = clientItemMap.get("readingroomClientId");
+                        authLog.setClientId("readingroomClientId");
+                        authLog.setAuthSource(item.getClientName());
+                    }else if ("cloudcourse".equals(business_client) || "cloudcourse-test".equals(business_client)){
+                        ClientItem item = clientItemMap.get("cloudcourse");
+                        authLog.setClientId("cloudcourse");
+                        authLog.setAuthSource(item.getClientName());
+
+                    }else if ("adaptive-learning".equals(business_client)){
+                        ClientItem item = clientItemMap.get("adaptive-learning");
+                        authLog.setClientId("adaptive-learning");
+                        authLog.setAuthSource(item.getClientName());
+                    }
+
+                    OauthType oauthType = OauthType.getValue(loginType);
+                    if (oauthType != null){
+                        modelAndView.addObject("loginType",loginType);
+                    }else {
+                        modelAndView.addObject("loginType","");
+                    }
+                }else {
+                    modelAndView.addObject("loginType","");
+                }
             }
-            if (StringUtils.isEmpty(returnUrl)) {
-                modelAndView.setViewName("error");
-                modelAndView.addObject("message", "登录成功回调地址为空");
-                return modelAndView;
+            authLogService.save(authLog);
+
+
+            String dianjiaoguanLoinUrl = generateLoginUrl(returnUrl, OauthType.dianjiaoguan.getCode(), authLog.getId());
+            modelAndView.addObject("dianjiaoguanLoinUrl", dianjiaoguanLoinUrl);
+            String edenoperationLoginUrl = generateLoginUrl(returnUrl, OauthType.edenoperation.getCode(), authLog.getId());
+            modelAndView.addObject("edenoperationLoginUrl", edenoperationLoginUrl);
+
+            OauthType[] oauthTypes = OauthType.values();
+            for (OauthType oauthType : oauthTypes) {
+                if ("idp".equals(oauthType.getType())){
+
+                    String idpAuthTypeUrl = generateSpLoginUrl(returnUrl, oauthType.getCode(), authLog.getId());
+                    modelAndView.addObject(oauthType.getCode()+"LoginUrl", idpAuthTypeUrl);
+                }
             }
-            String loginType = request.getParameter("login_type");
-            if(StringUtils.isNotEmpty(loginType) && OauthType.getValue(loginType)!=null) {
-                OauthConfigItem oauthConfigItem = oauthConfig.getItems().get(OauthType.getValue(loginType).getCode());
-                authLog.setFowardUrl(oauthConfigItem.getOauthUrl());
-                authLog.setOauthType(OauthType.getValue(loginType).getCode());
-                // 阅览室日志分离
-                ClientItem item = clientItemMap.get("readingroomClientId");
-                authLog.setAuthSource(item.getClientName());
-                authLogService.save(authLog);
-                response.sendRedirect(generateLoginUrl(returnUrl, OauthType.getValue(loginType).getCode(), authLog.getId()));
-                return null;
-            } else {
-                authLogService.save(authLog);
-                String url1 = generateLoginUrl(returnUrl, OauthType.dianjiaoguan.getCode(), authLog.getId());
-                modelAndView.addObject("loginUrl1", url1);
-                String url2 = generateLoginUrl(returnUrl, OauthType.edenoperation.getCode(), authLog.getId());
-                modelAndView.addObject("loginUrl2", url2);
-                String url3 = generateSpLoginUrl(returnUrl, OauthType.qpjy.getCode(), authLog.getId());
-                modelAndView.addObject("loginUrl3", url3);
-                modelAndView.addObject("logId", authLog.getId());
-            }
+
+            modelAndView.addObject("logId", authLog.getId());
         } catch (Exception e) {
             e.printStackTrace();
             modelAndView.setViewName("error");
@@ -171,7 +143,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping("tologin")
+    @RequestMapping("auth/tologin")
     public ModelAndView toLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         String loginUrl = request.getParameter("loginUrl");
@@ -190,6 +162,13 @@ public class AuthController {
             authLog.setVersion(version);
             authLog.setDevice(device);
             authLog.setOs(os);
+            Date now  = new Date();
+            String yearMonthDay = DateUtils.dateToString(now, "yyyy-MM-dd");
+            String yearMonth = DateUtils.dateToString(now, "yyyy-MM");
+            String year = DateUtils.dateToString(now, "yyyy");
+            authLog.setYear(year);
+            authLog.setYearMonth(yearMonth);
+            authLog.setYearMonthDay(yearMonthDay);
             authLogService.save(authLog);
             response.sendRedirect(loginUrl);
             return null;
@@ -201,7 +180,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("auth/logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("logout");
@@ -248,8 +227,17 @@ public class AuthController {
             authLog.setAuthSource(clientItem.getClientName());
             authLog.setLogType(LogType.logout);
             authLogService.save(authLog);
-            if(StringUtils.isNotEmpty(service))
-                response.sendRedirect(generateLogoutUrl(service, type.name()));
+            if(StringUtils.isNotEmpty(service)) {
+                if (!OauthType.dianjiaoguan.equals(type) && !OauthType.edenoperation.equals(type)){
+                    if (OauthType.qpjy.equals(type)){
+                        response.sendRedirect(generateSpLogoutUrl(service,type.name()));
+
+                    }
+
+                }else{
+                    response.sendRedirect(generateLogoutUrl(service, type.name()));
+                }
+            }
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -259,13 +247,17 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "loginsuccess", method = RequestMethod.GET)
+    @RequestMapping(value = "auth/loginsuccess", method = RequestMethod.GET)
     public ModelAndView loginsuccess(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView) {
         modelAndView.setViewName("loginsuccess");
         String code = request.getParameter("code");
         String oauthType = request.getParameter("oauth_type");
         String logId = request.getParameter("log_id");
         String returnUrl = request.getParameter("return_url");
+
+        System.out.println("code=" +code);
+        System.out.println("oauthType=" +oauthType);
+        System.out.println("returnUrl=" +returnUrl);
 
         AuthLog authLog = authLogService.getById(logId);
         if(authLog == null){
@@ -331,6 +323,7 @@ public class AuthController {
                 }
                 clientDataInfo.setAuthUserInfo(userInfo);
                 clientDataInfo.setOauthType(OauthType.valueOf(oauthType));
+
                 modelAndView.addObject("clientDataInfo", clientDataInfo);
                 modelAndView.addObject("successPostUrl", returnUrl);
             }
@@ -344,7 +337,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "idp/loginsuccess")
+    @RequestMapping(value = "auth/idp/loginsuccess")
     public ModelAndView idploginsuccess(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView) {
         modelAndView.setViewName("loginsuccess");
         String code = request.getParameter("code");
@@ -366,6 +359,11 @@ public class AuthController {
             String userType = request.getParameter("user_type");
             userInfo.setRealName(request.getParameter("real_name"));
             userInfo.setId(request.getParameter("login_name"));
+            if ("student".equals(userType)){
+                userInfo.setUserType(UserType.STUDENT);
+            }else if ("tearcher".equals(userType)){
+                userInfo.setUserType(UserType.TEACHER);
+            }
             // 封装下游数据
             ClientDataInfo clientDataInfo = new ClientDataInfo();
             if(userInfo != null) {
@@ -397,6 +395,7 @@ public class AuthController {
             }
             clientDataInfo.setAuthUserInfo(userInfo);
             clientDataInfo.setOauthType(OauthType.valueOf(oauthType));
+
             modelAndView.addObject("clientDataInfo", clientDataInfo);
             modelAndView.addObject("successPostUrl", returnUrl);
 
@@ -411,7 +410,7 @@ public class AuthController {
     }
 
 
-    @RequestMapping(value = "logoutsuccess", method = RequestMethod.GET)
+    @RequestMapping(value = "auth/logoutsuccess", method = RequestMethod.GET)
     public ModelAndView loginoutsuccess(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView) throws IOException {
         String returnUrl = request.getParameter("return_url");
         if(StringUtils.isNotEmpty(returnUrl)){
@@ -454,7 +453,7 @@ public class AuthController {
         if (!oauthConfigItem.getOauthUrl().endsWith("/")) {
             loginUrlBuilder.append("/");
         }
-        loginUrlBuilder.append("?client_id=").append(oauthConfigItem.getClientId());
+        loginUrlBuilder.append("login?client_id=").append(oauthConfigItem.getClientId());
         String loginSuccessUrl = oauthConfigItem.getLoginSuccessUrl();
         loginSuccessUrl = loginSuccessUrl + "?log_id=" + logId+"&oauth_type=" + oauthType ;
         if (StringUtils.isNotEmpty(returnUrl)) {
@@ -472,6 +471,7 @@ public class AuthController {
         //oauthConfig + "/authorize?client_id=testClentId&redirect_uri=http%3a%2f%2f192.168.17.129%3a7774%2fauth%2floginsuccess.do&state=state"
         StringBuilder loginUrlBuilder = new StringBuilder();
         OauthConfigItem oauthConfigItem = oauthConfig.getItems().get(oauthType);
+
         loginUrlBuilder.append(oauthConfigItem.getOauthUrl());
         if (!oauthConfigItem.getOauthUrl().endsWith("/")) {
             loginUrlBuilder.append("/");
@@ -485,6 +485,39 @@ public class AuthController {
         loginUrlBuilder.append("logout?service=").append(URLEncoder.encode(service));
         return loginUrlBuilder.toString();
     }
+
+
+    private String generateSpLogoutUrl(String returnUrl, String oauthType) {
+
+        if (oauthType.equals("qpjy")){
+            returnUrl = "https://idp.qpedu.cn/logout/logout.html?redirect_url=" + returnUrl;
+            returnUrl = "https://sp.etextbook.cn/Shibboleth.sso/Logout?return=" + URLEncoder.encode(returnUrl);
+            return returnUrl;
+        }
+        StringBuilder loginUrlBuilder = new StringBuilder();
+        OauthConfigItem oauthConfigItem = oauthConfig.getItems().get(oauthType);
+
+        loginUrlBuilder.append(oauthConfigItem.getOauthUrl());
+        if (!oauthConfigItem.getOauthUrl().endsWith("/")) {
+            loginUrlBuilder.append("/");
+        }
+        String service = oauthConfigItem.getLogoutSuccessUrl();
+        if (StringUtils.isNotEmpty(returnUrl)) {
+            Map<String, String> param = new HashMap<>();
+            param.put("return_url", URLEncoder.encode(returnUrl));
+            service = appendUrl(service, param);
+        }
+
+        String clientId = oauthConfigItem.getClientId();
+        String signOrigin = oauthConfigItem.getClientId() + "$$" + oauthConfigItem.getClientSecret();
+        String md5Hex = EncodeUtil.md5(signOrigin);
+
+        loginUrlBuilder.append("logout?service=").append(URLEncoder.encode(service));
+        loginUrlBuilder.append("&client_id="+clientId);
+        loginUrlBuilder.append("&sign="+md5Hex);
+        return loginUrlBuilder.toString();
+    }
+
 
     private String generateUserInfoUrl(String accessToken, String oauthType) {
         //String url = "http://castest.edu.sh.cn/CAS/oauth2.0/accessToken?client_id=testClentId&client_secret=testClientSecret&redirect_uri=http%3a%2f%2f192.168.17.129%3a7774%2fauth%2floginsuccess2.do&code=" + code;
@@ -537,7 +570,7 @@ public class AuthController {
         return newUrl;
     }
 
-    @RequestMapping("shauth")
+    @RequestMapping("auth/shauth")
     public ModelAndView chineseallLogin(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("toward");
@@ -583,7 +616,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping("shlogout")
+    @RequestMapping("auth/shlogout")
     public ModelAndView shLogout(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("logout");
