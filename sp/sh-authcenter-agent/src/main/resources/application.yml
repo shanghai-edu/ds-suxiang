@@ -1,0 +1,56 @@
+server:
+  port: 9600
+  context-path: /authcenter
+spring:
+  application:
+    name: eden-authcenter-agent
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    enabled: true
+    content-type: text/html
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    default-property-inclusion: non_null
+    serialization: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 300MB
+oauth:
+  items:
+    dianjiaoguan:   #电教馆
+      #oauthUrl: https://castest.edu.sh.cn/CAS
+      oauthUrl: https://cas2.edu.sh.cn/CAS
+      clientId: clientid
+      clientSecret: clientSecret
+      loginSuccessUrl: https://ds.etextbook.cn/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://ds.etextbook.cn/authcenter/auth/logoutsuccess
+    edenoperation:  #运营中心
+      #oauthUrl: https://operator-api-test.etextbook.cn/cas
+      oauthUrl: https://operator-api.sh-genius.cn/cas/
+      clientId: testClentId
+      clientSecret: testClientSecret
+      loginSuccessUrl: https://ds.etextbook.cn/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://ds.etextbook.cn/authcenter/auth/logoutsuccess
+oauthclient:
+  clients:
+    - clientName: 金山阅读
+      clientId: jsydClentId
+      clientSecret: jsydClientSecret
+      loginWay: 1
+      loginGoal: jsyd
+    - clientName: DS认证中心
+      clientId: dsClentId
+      clientSecret: VjyqUkkM5Znu
+    - clientName: 接入样例
+      clientId: testClentId2
+      clientSecret: testClientSecret2
+

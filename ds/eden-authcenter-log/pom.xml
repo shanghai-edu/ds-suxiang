@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sh-ds</artifactId>
+        <groupId>com.chineseall.eden</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>eden-authcenter-log</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sh.chineseall</groupId>
+            <artifactId>alpha-framework-api</artifactId>
+            <version>2.0.6.0014</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alpha-framework-api-2.0.6.0014.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sh.chineseall</groupId>
+            <artifactId>alpha-framework-core</artifactId>
+            <version>2.0.6.0014</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alpha-framework-core-2.0.6.0014.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sh.chineseall</groupId>
+            <artifactId>alpha-framework-dao-core</artifactId>
+            <version>2.0.6.0014</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alpha-framework-dao-core-2.0.6.0014.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sh.chineseall</groupId>
+            <artifactId>alpha-framework-dao-mongo</artifactId>
+            <version>2.0.6.0014</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alpha-framework-dao-mongo-2.0.8.0006.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.sh.chineseall</groupId>
+            <artifactId>alpha-framework-cache-core</artifactId>
+            <version>2.0.6.0014</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alpha-framework-cache-core-2.0.6.0014.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.undercouch</groupId>
+            <artifactId>bson4jackson</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <type>jar</type>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

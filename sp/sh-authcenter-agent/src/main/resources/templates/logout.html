@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <meta content="" name="description" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>登出</title>
+</head>
+
+<body>
+  <div style="text-align: center;">
+    <h1>登出中，请稍后...</h1>
+  </div>
+  <iframe id="sp" src="" frameborder="0" style="display: none;"></iframe>
+  <iframe id="idp" src="" frameborder="0" style="display: none;"></iframe>
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var spLogoutUrl = [[${logoutUrl}]];
+    //var idpLogoutUrl = [[${idpLogoutUrl}]];
+    var returnUrl = [[${returnUrl}]];
+    /*]]>*/
+  </script>
+
+  <script>
+    // var spLogoutUrl = 'https://sp.etextbook.cn/Shibboleth.sso/Logout';
+    // var idpLogoutUrl = 'https://idp.jsedu.sh.cn/idp/profile/Logout';
+    // var returnUrl = 'http://180.167.91.206:5710';
+
+    function samlLogout() {
+      console.log(window.frames['sp'], window.frames['idp'])
+      //console.log(spLogoutUrl, idpLogoutUrl)
+      window.frames[0].location.href = spLogoutUrl;
+      //window.frames[1].location.href = idpLogoutUrl;
+      setTimeout(() => {
+        window.location.href = returnUrl;
+      }, 100);
+    }
+
+    samlLogout();
+  </script>
+</body>
+
+</html>

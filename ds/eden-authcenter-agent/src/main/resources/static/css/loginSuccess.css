@@ -1,0 +1,67 @@
+#showMessage {
+  height: 100%;
+  background: url('../img/msg-bg-xp.jpg') center no-repeat;
+  background-size: cover;
+}
+.login-success {
+  padding: 12% 8%;
+  font-size: 26px;
+  color: white;
+  letter-spacing: 8px;
+  font-weight: 900;
+  height: calc(100% -50px);
+}
+.login-success-hello {
+  font-size: 32px;
+  margin-bottom: 45px;
+}
+.login-success-footer {
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  width: 100%;
+  background-color: white;
+}
+.login-success-footer-text {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .login-success {
+    font-size: 22px;
+  }
+  .login-success-hello {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .login-success {
+    font-size: 18px;
+  }
+  .login-success-hello {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .login-success {
+    font-size: 14px;
+  }
+  .login-success-hello {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 3000px) {
+  .login-success {
+    font-size: 32px;
+  }
+  .login-success-hello {
+    font-size: 42px;
+    margin-bottom: 60px;
+  }
+}

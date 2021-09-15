@@ -1,0 +1,103 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big,
+cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl,
+dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, thead, tr, th, td, header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ul li{ list-style:none;}
+a{ text-decoration:none; outline:none;}
+h1, h2, h3, h4 {
+    font-weight:normal;
+}
+html{
+    font-size:14px;
+    font-family:"Microsoft Yahei","微软雅黑"; color:#323232;
+}
+ul li{ list-style:none;  margin: 0;  padding: 0;  border: 0;}
+a{ text-decoration:none; -webkit-tap-highlight-color: transparent;  }
+.fl{ float:left; display:inline;}
+.fr{ float:right; display:inline;}
+.none{ display:none;}
+.clearfix{overflow:hidden;_zoom:1;}
+.clear{ clear:both;}
+::-webkit-input-placeholder { /* WebKit browsers */ 
+font-size:14px;
+ color:#c1c1c1;
+ font-family:"Microsoft Yahei","微软雅黑";
+} 
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+font-size:14px;
+color:#c1c1c1;
+font-family:"Microsoft Yahei","微软雅黑";
+} 
+::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+font-size:14px;
+color:#c1c1c1;
+font-family:"Microsoft Yahei","微软雅黑";
+} 
+:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+font-size:14px;
+color:#c1c1c1;
+font-family:"Microsoft Yahei","微软雅黑";
+}
+.top{ width:100%; height:115px; border-top:solid 5px #87abe0;}
+.main{ width:1070px; height:auto; margin-left:auto; margin-right:auto;}
+.bottom{ width:100%; height:239px; background:#fff url(../images/Login-b.jpg) no-repeat top center; }
+.pbottom{ position:absolute; bottom:0px;}
+.bottom > p{ color:#aab9c5; font-size:12px; line-height:75px; text-align:center; }
+.login-c{ width:100%; height:603px; background:url(../images/login-bg.jpg) no-repeat center center;}
+.login-list{ padding-top:95px; padding-left:62px;  }
+ul.login-list-ul{ width:442px; height:285px; padding-left:30px; padding-top:25px; background:url(../images/login-list-bg.png) no-repeat top left;}
+ul.login-list-ul > li > a{ padding-left:26px; width:416px; display:block; height:35px; line-height:35px; background:url(../images/li-icon.png) no-repeat left center; color:#313131; font-size:14px; }
+ul.login-list-ul > li > a:hover{ text-decoration:underline;} 
+.login-form{ background-color:#fbfbfb; border-radius:3px; box-shadow:0px 0px 3px rgba(0,0,0,.15); width:270px; margin-top:90px;}
+.login-form-h2{ border-bottom:solid 1px #f2f2f2; text-align:center; color:#565656; font-size:16px; line-height:55px; }
+.login-form-tip{ background:url(../images/tip-tline.jpg) repeat-x top left; padding-top:16px; padding-bottom:20px;  width:260px; margin-left:auto; margin-right:auto;  }
+.login-form-tip > p{ color:#9b9b9b; font-size:12px; -webkit-transform:scale(0.95,0.95) ; *font-size:11px; line-height:1.8em;}
+.login-form-tip > p > a{ color:#5c5c5b; text-decoration:underline;}
+.login-jump{height:110px; padding-top:50px; padding-bottom:50px;}
+dl.jump-select-dl{ width:213px; height:38px; border:solid 1px #c1c1c1; margin-left:auto; margin-right:auto;}
+dl.jump-select-dl dt{ width:37px; height:28px; padding-top:5px; padding-bottom:5px; float:left; display:inline; background:url(../images/user.png) no-repeat center center;}
+dl.jump-select-dl > dt >span{ display:block; width:36px; height:28px; border-right:solid 1px #c1c1c1;}
+dl.jump-select-dl dd{ width:176px; height:38px; float:right; display:inline;}
+select.jump-select {
+    width: 176px;
+	padding-left:15px;
+	padding-right:30px;
+    font-family:"Microsoft Yahei","微软雅黑";
+	font-size:14px;
+    color: #c1c1c1;
+    height:38px;
+    -moz-appearance:none;
+    appearance: none;
+    -webkit-appearance: none;
+	outline:none;
+	border:none;
+    background:url(../images/select-arrow.png) no-repeat center right;
+    
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/  
+    order: solid 1px #000;   
+   
+}
+.login-jump-btn{ width:215px; height:37px; margin-top:30px; margin-left:auto; margin-right:auto; }
+select::-ms-expand { display: none; }
+a.jump-btn{ width:135px; height:37px; display:block; background:url(../images/login-jump-btn1.jpg) no-repeat left center;}
+a.help-btn{ width:65px; height:37px; display:block; background:url(../images/help-btn.jpg) no-repeat left center;}
+.login-eduroam{ padding-top:65px; height:465px;}
+.login-eduroam-form{ width:462px; height:465px; margin-left:auto; margin-right:auto; background-color:#fdfcfc; border-radius:3px; box-shadow:0px 0px 3px rgba(0,0,0,.15); }
+.login-eduroam-form > h2{ color:#565656; font-size:18px; padding-top:12px;  line-height:2em; text-align:center;}
+.login-eduroam-form > h3{ width:100%; background:url(../images/line2.jpg) repeat-x left center; height:20px; text-align:center; }
+.login-eduroam-form > h3 > span{color:#85b4ed; font-family:Arial; font-size:12px; -webkit-transform:scale(0.95,0.95) ; *font-size:11px; line-height:1.8em; text-transform:uppercase; background-color:#fcfcfc; display:inline-block; padding-left:10px; padding-right:10px;}
+.login-eduroam-tip{background: url(../images/tip-tline.jpg) repeat-x top left; padding-top:15px; padding-bottom:15px; text-align:center;}
+ul.eduroam-ul{ margin-left:60px; width:315px;}
+ul.eduroam-ul > li > a{ width:300px; padding-left:15px; display:block; text-align:left; background:url(../images/eduroam-li.png) no-repeat left center; color:#959595; font-size:12px; line-height:20px;}
+ul.eduroam-ul > li > a > span{ color:#729dd1; font-family:Arial; font-size:12px; -webkit-transform:scale(0.95,0.95) ; *font-size:11px; text-transform:uppercase; display:inline-block; padding-left:5px;}
+.login-eduroam-line{ width:346px; height:auto; margin-left:auto; margin-right:auto; margin-top:10px;}
+a.login-btn{ width:346px; height:44px; margin-bottom:25px; margin-top:35px; display:block; background:url(../images/login-btn.png) no-repeat top center; }
+dl.login-eduroam-txt{ border:solid 1px #c1c1c1; height:38px; width:344px; margin-top:25px;}
+dl.login-eduroam-txt dt{ width:37px; height:38px; float:left; display:inline;}
+dl.login-eduroam-txt dd{ width:305px; height:28px; padding-top:5px; padding-bottom:5px; float:right; display:inline;}
+dl.login-eduroam-txt-user dt{ background:url(../images/user.png) no-repeat center center;} 
+dl.login-eduroam-txt-password dt{ background:url(../images/password.png) no-repeat center center;} 
+.login-eduroam-input{ border-left:solid 1px #c1c1c1; width:284px; height:28px; padding:0px 10px; margin:0px; border-bottom:0px; border-right:0px; border-top:0px; outline:none; font-size:14px; line-height:28px; color:#565656;}

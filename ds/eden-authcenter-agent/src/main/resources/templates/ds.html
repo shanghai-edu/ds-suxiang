@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html class="no-js" xmlns:th="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+  <head>
+
+    <script type="text/javascript" th:src="@{/static/js/browser.js}"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var dianjiaoguanLoinUrl = [[${dianjiaoguanLoinUrl}]];
+      var edenoperationLoginUrl = [[${edenoperationLoginUrl}]];
+      var logId = [[${logId}]];
+      var loginType = [[${loginType}]];
+      var ctxPath = /*[[@{/}]]*/ '';
+
+      var idpList = {
+        qpjy: [[${qpjyLoginUrl}]],
+        hpjy: [[${hpjyLoginUrl}]],
+        xhjy: [[${xhjyLoginUrl}]],
+        cnjy: [[${cnjyLoginUrl}]],
+        ptjy: [[${ptjyLoginUrl}]],
+        hkjy: [[${hkjyLoginUrl}]],
+        ypjy: [[${ypjyLoginUrl}]],
+        pdjy: [[${pdjyLoginUrl}]],
+        mhjy: [[${mhjyLoginUrl}]],
+        bsjy: [[${bsjyLoginUrl}]],
+        jsjy: [[${jsjyLoginUrl}]],
+        sjjy: [[${sjjyLoginUrl}]],
+        fxjy: [[${fxjyLoginUrl}]],
+        cmjy: [[${cmjyLoginUrl}]],
+        jajy: [[${jajyLoginUrl}]],
+        jdjy: [[${jdjyLoginUrl}]],
+      }
+      function toLogin(idp) {
+        var info = new Browser();
+        var baseUrl = ctxPath + "auth/tologin?logId="+logId+"&oauthType=";
+        if (idp=="dianjiaoguan") {
+          window.location.href = baseUrl+ "dianjiaoguan&loginUrl=" + encodeURIComponent(dianjiaoguanLoinUrl)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        } else if (idp=="edenoperation") {
+          window.location.href = baseUrl+ "edenoperation&loginUrl=" + encodeURIComponent(edenoperationLoginUrl)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        } else {
+          window.location.href = baseUrl+idp+"&loginUrl=" + encodeURIComponent(idpList[idp]+"&auth_source="+idp)+"&browser="+info.browser+"&device="+info.device+"&os="+info.os+"&version="+info.version;
+        }
+      }
+      if (loginType && loginType.length > 0){
+        toLogin(loginType);
+      }
+    </script>
+    <meta charset="utf-8" />
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>发现服务·速享之旅</title>
+    <link rel="stylesheet" th:href="@{/static/css/ds.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}" />
+    <link rel="shortcut icon" th:href="@{/static/img/favicon.ico}" >
+    <script type="text/javascript" th:src="@{/static/js/jquery-1.10.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/browser.js}"></script>
+
+    <style>
+      .form-group {
+        width: 100%;
+      }
+
+      .bg-form {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-direction: normal;
+        -webkit-box-orient: vertical;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -moz-align-items: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -moz-justify-content: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a
+          href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="bg">
+      <div class="bg-form">
+        <div class="loginContainer">
+          <!--<h1>上海数字教材运营管理中心</h1>-->
+          <div class="login-box text-center">
+            <img class="logo-top-left" th:src='@{/static/img/Rlogo.png}' />
+
+            <p class="title">发现服务·速享之旅</p>
+            <div class="title-line-city">
+              <p>请选择登录方式</p>
+            </div>
+            <button id="login-btn-szjc" onclick="toLogin('edenoperation')" type="button"></button>
+            <button id="login-btn-tyrz" onclick="toLogin('dianjiaoguan')" type="button"></button>
+            <div class="title-line-district">
+              <p>区域认证</p>
+            </div>
+            <div class="login-btn-district">
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('hpjy')" type="button">黄浦区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('xhjy')" type="button">徐汇区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('cnjy')" type="button">长宁区</button>
+              <button class="login-btn-idp" disabled="disabled" onclick="toLogin('jajy')" type="button">静安区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('ptjy')" type="button">普陀区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('hkjy')" type="button">虹口区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('ypjy')" type="button">杨浦区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('pdjy')" type="button">浦东新区</button>
+            </div>
+            <div class="login-btn-district">
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('mhjy')" type="button">闵行区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('bsjy')" type="button">宝山区</button>
+              <button class="login-btn-idp" disabled="disabled" onclick="toLogin('jdjy')" type="button">嘉定区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('jsjy')" type="button">金山区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('sjjy')" type="button">松江区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('qpjy')" type="button">青浦区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('fxjy')" type="button">奉贤区</button>
+              <button class="login-btn-idp login-btn-idp-enable" onclick="toLogin('cmjy')" type="button">崇明区</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p class="footer-text">版权所有&copy;上海教育认证中心</p>
+    </div>
+  </body>
+</html>

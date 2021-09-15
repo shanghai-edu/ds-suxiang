@@ -1,0 +1,17 @@
+{
+  "mongo": [
+    {
+      "connectionName": "mongo",
+      "host": "xxx",
+      "port": 3717,
+      "replicaSet": "xxx:3717",
+      "maxConnectionsPerHost": 3000,
+      "threadsAllowedToBlockForConnectionMultiplier": 10,
+      "authentication": true,
+      "connectTimeout": 10000,
+      "password": "xxx",
+      "userName": "xxx",
+      "dbName": "xxx"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+server:
+  port: 9600
+  context-path: /authcenter
+spring:
+  application:
+    name: eden-authcenter-agent
+  mvc:
+    static-path-pattern: /static/**
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    enabled: true
+    content-type: text/html
+  jackson:
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+    default-property-inclusion: non_null
+    serialization: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  http:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 300MB
+oauth:
+  items:
+    dianjiaoguan:   #电教馆
+      oauthUrl: https://castest.edu.sh.cn/CAS
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    edenoperation:  #运营中心
+      oauthUrl: https://xxx/cas
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    qpjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    cmjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    fxjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    sjjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    jsjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    jdjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    bsjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    mhjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    pdjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    ypjy:  #idp
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    hkjy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    ptjy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    jajy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    cnjy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    xhjy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+    hpjy:  #idp
+
+      oauthUrl: https://xxx/authcenter/auth
+      clientId: xxx
+      clientSecret: xxx
+      loginSuccessUrl: https://xxx/authcenter/auth/idp/loginsuccess
+      logoutSuccessUrl: https://xxx/authcenter/auth/logoutsuccess
+
+
+oauthclient:
+  clients:
+    - clientName: 接入样例
+      clientId: xxxx
+      clientSecret: xxxx
+
+

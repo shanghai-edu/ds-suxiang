@@ -1,0 +1,69 @@
+body {
+  overflow: auto;
+}
+.static {
+  height: 100vh;
+}
+.statistics-header{
+  width: 100%;
+  display: flex;
+  background-color: white;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.statistics-content {
+  margin: 6px 6px;
+  display: flex;
+  height: calc(100vh - 90px);
+}
+.statistics-content-item {
+  background-color: white;
+  margin: 10px 5px;
+  overflow: hidden;
+}
+.item-height {
+  height: 40%;
+}
+.item-height-higher {
+  height: 60%;
+}
+.statistics-content-item-title {
+  padding: 12px 0 0 20px;
+  font-size: 14px;
+  color: #777c82;
+}
+.statistics-content-item-title-remark {
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
+}
+.nums-total {
+  width: 140px;
+  height: 91px;
+  display: inline-block;
+  background-size: cover !important;
+  font-size: 12px;
+}
+.nums-title {
+  color: white;
+  margin: 20px 10px 10px 10px;
+  font-weight: 700;
+}
+.nums-title-num {
+  color: white;
+  margin: 0px 10px 20px 10px;
+  font-weight: 700;
+}
+.nums-total-nums {
+  font-size: 22px;
+}
+.idp-total-nums {
+  color: rgb(77, 160, 255);
+}
+.nums-by-idp {
+  width: 100%;
+  padding: 8px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
